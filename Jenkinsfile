@@ -105,7 +105,9 @@ pipeline {
             }
         }
 
-        post {
+    }
+    
+    post {
         always {
             echo 'slack notifications'
             slackSend(
@@ -114,7 +116,5 @@ pipeline {
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\nMore info at: ${env.BUILD_URL}"
             )
         }
-    }
-
     }
 }
