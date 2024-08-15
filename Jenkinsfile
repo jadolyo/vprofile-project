@@ -8,6 +8,12 @@ pipeline {
     }
 	
     environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "172.31.30.137:8081"
+        ARTVERSION = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
+        NEXUS_REPOSITORY = "vprofile-release"
+        NEXUS_CREDENTIAL_ID = "nexuslogin"
         SNAP_REPO = "vprofile-snapshot"
         NEXUS_USER = "admin"
         NEXUS_PASS = "admin"
@@ -71,6 +77,26 @@ pipeline {
               timeout(time: 1, unit: 'HOURS') {
                waitForQualityGate abortPipeline: true
               }
+            }
+        }
+
+        stage('UploadArtifact') {
+            steps {
+                nexusArtifactUploader(
+                    nexusVersion: "${NEXUS_VERSION}",
+                    protocol: "${NEXUS_PROTOCOL}",
+                    nexusUrl: "${NEXUS_URL}",
+                    groupId: "QA",
+                    version: "${ARTVERSION}",
+                    repository: "${NEXUS_REPOSITORY}",
+                    credentialsId: "${NEXUS_CREDENTIAL_ID}",
+                    artifacts: [
+                        [artifactId: 'vproapp',
+                         classifier: '',
+                         file: 'target/vprofile-v2.war',
+                         type: 'war']
+                    ]
+                )
             }
         }
     }
