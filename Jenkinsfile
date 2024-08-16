@@ -15,7 +15,7 @@ pipeline {
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "172.31.30.204:8081"
+        NEXUS_URL = "107.21.161.228:8081"
         ARTVERSION = "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
         NEXUS_REPOSITORY = "vprofile-release"
         NEXUS_CREDENTIAL_ID = "nexuslogin"
@@ -24,8 +24,6 @@ pipeline {
         NEXUS_PASS = "admin"
         RELEASE_REPO = "vprofile-release"
         CENTRAL_REPO = "vpro-maven-central"
-        NEXUS_IP = "18.232.170.121"
-        NEXUS_PORT = "8081"
         NEXUS_GRP_REPO = "vpro-maven-group"
         NEXUS_LOGIN = "nexuslogin"
         SONARSERVER = "sonarserver"
